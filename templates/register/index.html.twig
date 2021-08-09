@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sign Up!{% endblock %}
+
+{% block body %}
+
+
+<div class="container">
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }} mt-3">{{ message }}</div>
+        {% endfor %}
+    {% endfor %}
+
+    <h1 class="text-center text-success mt-3 mb-4">Sign Up</h1>
+    <div class="col-6 mx-auto">
+        {{ form(form) }}
+    </div>
+
+
+</div>
+{% endblock %}
