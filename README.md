@@ -15,6 +15,7 @@ Pour pouvoir utiliser les codes, il faut installer une base de données.
 ### Base de données
 Ajoutez un administrateur, une liste d'expériences, une liste de compétences, une liste d'entreprises avant tester en s'inscrivant ou en ajoutant un profil de candidat.
 
+## Lancement du projet
 Pour exécuter le programme:
 1. Lancez votre serveur web local (e.g. MAMP).
 2. Il faut taper dans le terminal qui est dans le dossier Symfony:
