@@ -19,6 +19,6 @@ Pour exécuter le programme:
 1. Lancez votre serveur web local (e.g. MAMP).
 2. Il faut taper dans le terminal qui est dans le dossier Symfony:
 
-    symfony serve
-    
+        symfony serve
+
 3. C'est prêt à utiliser.
