@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Data\SearchData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -64,4 +65,59 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ;
     }
     */
+
+    /**
+     * @param string $role
+     *
+     * @return array
+     */
+    public function findByRole($role)
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('u')
+            ->from($this->_entityName, 'u')
+            ->where('u.roles LIKE :roles')
+            ->setParameter('roles', '%"'.$role.'"%');
+
+        return $qb->getQuery()->getResult();
+    }
+
+     /**
+     * @return User[]
+     */
+    public function findSearch(SearchData $search): array
+    {
+        $query = $this
+                    ->createQueryBuilder('p')
+                    ->select('c', 'p')
+                    ->join('p.skills', 'c');
+                    // ->andWhere('p.nom LIKE :nom')
+                    // ->setParameter("nom", "%{$search->nom}%");
+                    // ->addSelect('a')
+                    // ->Where('a.nom LIKE :nom')
+                    // // ->andWhere('a.skills LIKE :skill')
+                    // ->orWhere('a.prenom LIKE :search')
+                    // // ->andWhere('a.skills LIKE :value')
+                    // ->setParameter(':search', $r.nom)
+                    // // ->setParameter(':value', $skills);
+                    // ->leftJoin('a.skills', 'skill');
+        if(!empty($search->nom)){
+            $query = $query
+                ->andWhere('p.nom LIKE :nom')
+                ->orWhere('p.prenom LIKE :nom')
+                ->setParameter('nom', "%{$search->nom}%");
+        }
+
+        if(!empty($search->skills)){
+            $query = $query 
+                ->andWhere('c.id IN (:skills)')
+                ->setParameter('skills', $search->skills);
+        }
+        try {
+            return $query->getQuery()->getResult();
+        }
+        catch(\Exception $e) {
+            throw new \Exception('problème '. $e->getMessage(). $e->getFile());
+        }
+    }
 }

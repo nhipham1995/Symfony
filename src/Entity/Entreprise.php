@@ -29,6 +29,11 @@ class Entreprise
      */
     private $address;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $entreprise;
+
     public function __construct()
     {
         $this->nom = new ArrayCollection();
@@ -79,5 +84,25 @@ class Entreprise
         $this->address = $address;
 
         return $this;
+    }
+
+   
+
+    public function getEntreprise(): ?string
+    {
+        return $this->entreprise;
+    }
+
+    public function setEntreprise(string $entreprise): self
+    {
+        $this->entreprise = $entreprise;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+       
+        return  $this->entreprise . ",  " . $this->getAddress();
     }
 }

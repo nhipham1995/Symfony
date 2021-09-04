@@ -62,11 +62,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $prenom;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $disponibilite;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Document::class, mappedBy="owner")
+     */
+    private $document;
+
     public function __construct()
     {
         $this->skills = new ArrayCollection();
         $this->documents = new ArrayCollection();
         $this->experiences = new ArrayCollection();
+        $this->document = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -264,5 +285,49 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->prenom = $prenom;
 
         return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getDisponibilite(): ?bool
+    {
+        return $this->disponibilite;
+    }
+
+    public function setDisponibilite(?bool $disponibilite): self
+    {
+        $this->disponibilite = $disponibilite;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Document[]
+     */
+    public function getDocument(): Collection
+    {
+        return $this->document;
     }
 }

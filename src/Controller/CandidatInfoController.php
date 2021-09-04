@@ -17,7 +17,7 @@ class CandidatInfoController extends AbstractController
     {
         $this->entityManager = $entityManager;
     }
-    #[Route('/candidat/add', name: 'candidat_add')]
+    #[Route('/candidattest/add', name: 'candidat_add')]
     public function index(Request $request): Response
     {
         $user = new User();
@@ -28,9 +28,8 @@ class CandidatInfoController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
             // Encoder le mot de passe
-            $user->setNom(strtoupper($user->getNom()));
-            $user->setPassword($user->getPassword(12345));
-            $user->setRoles($user->getRoles(["ROLE_CANDIDAT"]));
+            $user->setPassword('12345');
+            $user->setRoles( array('ROLE_CANDIDAT') );
             $this->entityManager->persist($user);
             $this->entityManager->flush();
             $this->addFlash('success', 'You\'re successfully created a profile Candidat!');
@@ -43,4 +42,6 @@ class CandidatInfoController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+  
 }

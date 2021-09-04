@@ -126,4 +126,19 @@ class Experience
 
         return $this;
     }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+       $debut = $this->getDateDebut()->format('d/m/Y');
+       $fin = $this->getDateFin()->format('d/m/Y');
+
+        return   $debut . " - " . $fin . ": " . $this->entreprise . ". Detail: " .$this->getDetail();
+    }
 }

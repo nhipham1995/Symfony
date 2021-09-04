@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DashBoard{% endblock %}
+
+{% block body %}
+
+
+    <div class='mx-5 mt-5'>
+        <div class="row">
+            <div class="col-3">
+                <h5 class="text-center fw-light fs-5">Search<h5>
+                
+                <div>
+                    {% include 'user/filter.html.twig' with {form: form} only  %}
+                </div>
+            </div>
+
+            <div class="col-9">
+                    <h5 class="text-center fw-light fs-5"> Resultats </h5>
+                    <div class="row justify-content-evenly">
+                        {% for resultat in resultats %}
+                            <div class="col-xs-10 col-sm-6 col-md-4 mb-4" >
+                                {% include 'user/card.html.twig' with {item: resultat} only %}
+                            </div>
+                        {% endfor%}
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+
+{% endblock %}

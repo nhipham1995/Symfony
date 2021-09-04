@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Candidat {{ user.nom }} {{ user.prenom }} {% endblock %}
+
+{% block body %}
+
+
+<div class="container">
+    <div class="col-7 mx-auto">
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ type }} mt-3">{{ message }}</div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+
+    <h1 class="text-center text-success my-5">Profil</h1>
+    <div class="row">
+        <div class="col-4">
+            <p class="fw-normal">Nom:<br>
+            <span class="fw-lighter"> {{user.prenom}} {{user.nom}}</span> <br>
+            <p>
+                
+            <p class="fw-normal">Adresse:<br>
+            <span class="fw-lighter"> {{user.address}}</span><p>
+
+            <p class="fw-normal">Email:<br>
+            <span class="fw-lighter"> {{user.email}}</span><p>    
+
+            <p class="fw-normal">Telephone:<br>
+            <span class="fw-lighter"> {{user.phone}}</span><p>  
+
+            <p class="fw-normal">Disponibilité:<br>
+                {% if user.disponibilite == 1 %}
+                        <span class="fw-lighter">YES</span>
+                {% else %}
+                        <span class="fw-lighter">NON</span>                      
+                {% endif%}
+            </p>
+
+            <p class="fw-normal">Document:<br>
+                {% if user.document|length  %}
+                        <span class="fw-lighter">{{user.document|length}}</span>
+                {% else %}
+                        <span class="fw-lighter">0</span>                      
+                {% endif%}
+              
+            </p>
+
+            <a href="{{ path('collab_profile_edit', {'id' : user}) }}" class="btn btn-primary float-right">Modifier</a>
+     
+        </div>
+
+        <div class="col-8">
+            <div>
+                {% if user.skills|length == 0 %}
+                    <div class="alert alert-info" role="alert">
+                            Vous n'avez pas encore ajouté de compétences ! 
+                            <a href="{{ path('collab_skill_add') }}" role="button">Ajoutez un compétence</a>
+                {%else%}
+                    <p> Compétences: 
+                    <ul class="list-group">
+                        {% for skill in user.skills %}
+                            <li class="list-group-item fw-light">
+                                {{ skill }}                 
+                                <a href="{{ path('collab_skill_edit', {'user' : skill.id}) }}" class="btn btn-primary float-right">Modifier</a>
+                                <a href="{{ path('collab_skill_delete', {'id': skill.id}) }}" class="btn btn-danger float-right">Supprimer</a>
+                            </li><br>
+                        {% endfor %}
+                    </ul>
+                    <a href="{{ path('collab_skill_add') }}" class="fst-italic fw-lighter ">Ajoutez un compétence</a>
+
+                    </p>
+                {% endif %}
+            </div>
+
+            <div>
+                {% if user.experiences|length == 0 %}
+                   <div class="alert alert-info" role="alert">
+                        Vous n'avez pas encore ajouté d'expérience! 
+                        <a href="{{ path('collab_exp_add') }}" role="button">Ajoutez un expérience</a>
+                {%else%}
+                    <p> Expériences: 
+                    <ul class="list-group">
+                        {% for exp in user.experiences %}
+                            <li class="list-group-item fw-light">
+                                {{ exp }}         
+                                <br>        
+                                <a href="{{ path('collab_exp_edit', {'user' : exp.id}) }}" class="btn btn-primary float-right">Modifier</a>
+                                <a href="{{ path('collab_exp_delete', {'id': exp.id}) }}" class="btn btn-danger float-right">Supprimer</a>
+                            </li><br>
+                        {% endfor %}
+                    </ul>
+                    <a href="{{ path('collab_exp_add') }}" class="fst-italic fw-lighter ">Ajoutez un expérience</a>
+
+                    </p>
+                {% endif %}
+            </div>
+
+        </div>
+
+        </div>
+
+    </div>
+
+
+
+{% endblock %}

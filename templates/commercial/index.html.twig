@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DashBoard{% endblock %}
+
+{% block body %}
+
+
+<div>
+    <div class="col-7 mx-auto">
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ type }} mt-3">{{ message }}</div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+    {% if(is_granted('ROLE_ADMIN')) %}
+        <a class="btn btn-outline-info float-end me-4" href="{{path('admin')}}" role="button">Return Dashboard</a>
+    {%endif%}
+
+    {% if(is_granted('ROLE_COMMERCIAL')) %}
+        <a class="btn btn-outline-warning float-end me-4" href="{{path('list_search')}}" role="button">Search</a>
+    {%endif%}
+    <div>
+        <h1 class="text-center text-success mt-5 mb-4">DashBoard Profil </h1>
+    </div>
+
+    <div>
+        <div class='row justify-content-evenly'>
+                
+                <div class="col-sm-10 col-md-5 alert alert-primary " role="alert">
+                    <h4 style="text-decoration: none;">{{collab|length}}<h4>
+                    <p class="fw-light fs-5"> Nouveaux collaborateurs</p>
+                    <a class="btn btn-outline-success btn-sm float-end" href="{{path('collab_list')}}" role="button">All Collaborateurs</a>
+
+                </div>
+
+                
+                <div class="col-sm-10 col-md-5 alert alert-primary" role="alert">
+                    <h4>{{candidat|length}}<h4>
+                    <p class="fw-light fs-5"> Nouveaux candidats</p>
+                    <a class="btn btn-outline-success btn-sm float-end" href="{{path('candidats_list')}}" role="button">All Candidats</a>
+
+                </div>
+        <div>
+
+
+        <div class="row justify-content-evenly">
+            <div class="col-sm-10 col-md-5">
+                <h4>Derniers collaborateurs</h4>
+                <div class="row justify-content-evenly">
+                    {% for item in collab|reverse %}
+                    <div class="col-6 col-md-3" >
+                        <a href="{{ path('collab_profile_item', {'user' : item.id})  }}"><div class="card" style="width: 10rem;" data-bs-toggle="tooltip" data-bs-placement="top">
+                            <div class="mx-auto">
+                                <img src="https://images.unsplash.com/photo-1554651802-57f1d69a4944?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1008&q=80" width="155" class="rounded" alt="portrait">
+                        </a>
+                                <p class="text-center fst-italic fw-light">{{item.nom}} {{item.prenom}}
+                            </div>
+                        </div>
+                        
+                    </div>
+                    {% endfor %}
+                </div>
+            
+            </div>
+
+            <div class="col-sm-10 col-md-5">
+                <h4>Derniers candidats</h4>
+                <div class="row justify-content-evenly">
+                    {% for item in candidat|reverse %}
+                    <div class="col-6 col-md-3" >
+                        <a href="{{ path('candidat_item', {'user' : item.id})  }}"><div class="card" style="width: 10rem;" data-bs-toggle="tooltip" data-bs-placement="top">
+                            <div class="mx-auto">
+                                <img src="https://images.unsplash.com/photo-1554651802-57f1d69a4944?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1008&q=80" width="155" class="rounded" alt="portrait">
+                        </a>
+                                <p class="text-center fst-italic fw-light">{{item.nom}} {{item.prenom}}
+                            </div>
+                    </div>
+                        
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

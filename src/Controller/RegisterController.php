@@ -33,6 +33,7 @@ class RegisterController extends AbstractController
             // Encoder le mot de passe
             $user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
             $user->setNom(strtoupper($user->getNom()));
+            $user->setRoles(["ROLE_COLLABORATEUR"]);
             $this->entityManager->persist($user);
             $this->entityManager->flush();
             $this->addFlash('success', 'You\'re successfully created an account!');

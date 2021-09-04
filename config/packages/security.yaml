@@ -23,7 +23,7 @@ security:
             logout:
                 path: app_logout
                 # where to redirect after logout
-                # target: app_any_route
+                target: home
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -32,7 +32,8 @@ security:
             # switch_user: true
     role_hierarchy:
         ROLE_ADMIN: [ ROLE_COLLABORATEUR, ROLE_COMMERCIAL ]
-        ROLE_COMMERCIAL: ROLE_USER
+        ROLE_COMMERCIAL: ROLE_COLLABORATEUR
+        ROLE_COLLABORATEUR: ROLE_USER
         ROLE_USER: ROLE_CANDIDAT
 
     # Easy way to control access for large sections of your site

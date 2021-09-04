@@ -1,16 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CandidatInfoController!{% endblock %}
+{% block title %}Add a Profile Candidat!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Create Your Profile ✅</h1>
+<div class="container">
+    <h1 class="text-primary text-center mt-5 mb-4">Create Your Candidate Profile</h1>
+    <div class="col-8 mx-auto">
+        {{ form(form) }}
+    </div>
 
-   {{ form(form) }}
 </div>
 {% endblock %}

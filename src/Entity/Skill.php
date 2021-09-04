@@ -111,10 +111,10 @@ class Skill
     public function __toString()
     {
         if($this->getLikeOrNot() == 1){
-            $likeOrNot = "Like";
+            $likeOrNot = ", Like";
         } else {
-            $likeOrNot= 'Don\'t Like';
+            $likeOrNot= '';
         }
-        return $this->getNom() . ", niveau:  " . $this->getNiveau() . ", " . $likeOrNot;
+        return $this->getNom() . ", niveau:  " . $this->getNiveau() . $likeOrNot;
     }
 }

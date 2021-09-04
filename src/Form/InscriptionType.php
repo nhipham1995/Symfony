@@ -31,6 +31,11 @@ class InscriptionType extends AbstractType
                 'attr' => ['class'=> 'form-control mb-3 ',
                            'placeholder' => "Milles "]
             ])
+            ->add('address', TextType::class, [
+                'label' => 'You Address',
+                'attr' => ['class'=> 'form-control mb-3 ',
+                           'placeholder' => "2 Allée de Etoile, 37300 Joué-lès-Tours, France "]
+            ])
             ->add('password', PasswordType::class, [
                 'label' => 'Password',
                 'attr' => ['class'=> 'form-control mb-3 ']

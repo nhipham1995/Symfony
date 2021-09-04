@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List Collaborateurs {% endblock %}
+
+{% block body %}
+
+
+<div class="container">
+    <div class="col-7 mx-auto">
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ type }} mt-3">{{ message }}</div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+    <h1 class="text-center text-success my-5">List Collaborateurs</h1>
+
+    <div class="row justify-content-evenly">
+        {% for item in user|reverse %}
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="card " style="width: 20rem;">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80" class="card-img-top" height="150" alt="portrait">
+                <div class="card-body">
+                    <h5 class="card-title text-center">{{item.nom}} {{item.prenom}}</h5>
+                    <p class="card-subtitle text-center mb-2 text-muted fw-light fs-6 fst-italic">{{item.email}}</p>
+                </div>
+                <ul class="list-group list-group-flush fs-6">
+                    <li class="list-group-item">Phone: {{item.phone}}</li>
+                    <li class="list-group-item">Comptétences:
+                                {% if item.skills|length %}
+                                    {{item.skills|first.nom}}
+                                {% endif %}
+
+                    </li>
+                    <li class="list-group-item">Expériences: 
+                        {% if item.experiences|length %}
+                            {{item.experiences|first.entreprise}}
+                        {% endif %}
+                    </li>
+                    <li class="list-group-item">Disponibilité: 
+                    {% if item.disponibilite == 1 %}
+                        <span>YES</span>
+                    {% else %}
+                        <span>NON</span>                      
+                    {% endif%}
+                    </li>
+
+                </ul>
+                <div class="card-body fs-6">
+                    <a href="{{ path('collab_profile_item', {'user' : item.id})  }}">Voir Profil</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    <a class="btn btn-outline-info float-end mt-3" href="{{path('commercial_dashboard')}}" role="button">Return Dashboard Profil</a>
+
+    </div>
+{% endblock %}

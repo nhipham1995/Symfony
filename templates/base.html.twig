@@ -17,21 +17,35 @@
         </style>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Homepage</a>
+                <a class="navbar-brand" href="{{ path('home') }}" >Homepage</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="{{ path('home') }}">Home</a>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="#">Features</a>
                         </li>
+
+                        {% if(is_granted('ROLE_CANDIDAT') == false) %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('candidat_add') }}">Add Candidat Profile</a>
+                            </li>
+                        {% endif %}
+
+                        
+
                         {% if(is_granted('ROLE_ADMIN')) %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path('home') }}">Dashboard</a>
+                                <a class="nav-link" href="{{ path('admin') }}">Dashboard</a>
+                            </li>
+                        {% elseif(is_granted('ROLE_COMMERCIAL')) %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('commercial_dashboard') }}">Dashboard</a>
                             </li>
                         {% endif %}
                     </ul>
@@ -47,11 +61,15 @@
                                         Hi {{ app.user.prenom}} {{ app.user.nom }}!
                                     </a>
                                 </li>
+                                 <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('collab_profile') }}">Your Profile</a>
+                                </li>
                             {% endif %}
-                            <li class="nav-item"><a class="nav-link" href="{{ path('home') }}">Log Out</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Log Out</a></li>
                         {% else %}
                             <li class="nav-item"><a class="nav-link" href="{{ path('app_login') }}">Sign In</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ path('register') }}">Sign Up</a></li>                                {% endif %}
+                            <li class="nav-item"><a class="nav-link" href="{{ path('register') }}">Sign Up</a></li>                                
+                        {% endif %}
 
                     </ul>
                 </div>
